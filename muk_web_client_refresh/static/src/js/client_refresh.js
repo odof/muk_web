@@ -31,7 +31,10 @@ WebClient.include({
         return this._super();
     },
     refresh: function(message) {
-    	var active_view = this.action_manager.inner_widget.active_view
+        // OF Modification OpenFire
+        var widget = this.action_manager && this.action_manager.inner_widget;
+        var active_view = widget ? widget.active_view : false;
+        // OF Fin Modification OpenFire
         if (active_view){   
             var controller = this.action_manager.inner_widget.active_view.controller
             if (controller.model === message  && !controller.$el.hasClass('o_form_editable')){                                               
