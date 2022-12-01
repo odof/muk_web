@@ -25,6 +25,7 @@ var session = require('web.session');
 var Model = require("web.Model");
 
 var KanbanView = require('web_kanban.KanbanView');
+var FormView = require('web.FormView');
 
 var PreviewHelper = require('muk_preview_attachment.PreviewHelper');
 
@@ -44,6 +45,20 @@ KanbanView.include({
     	e.preventDefault();
         e.stopPropagation();
         PreviewHelper.createAttachmentPreview($(e.currentTarget).data('id'));
+    },
+});
+
+FormView.include({
+    init: function() {
+        this._super.apply(this, arguments);
+        this.events = _.extend(this.events, {
+            'click .oe_attachment .o_image': 'preview',
+        });
+    },
+    preview: function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        PreviewHelper.createAttachmentPreview($(e.currentTarget).parent().find('.oe_delete').data('id'));
     },
 });
 
